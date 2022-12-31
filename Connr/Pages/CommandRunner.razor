@@ -1,0 +1,52 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<EditForm Model="Model" OnValidSubmit="Start">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    
+    <table>
+        <tr>
+            <td>
+                Command
+            </td>
+            <td>
+                <InputText id="Command" @bind-Value="Model.Command"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Arguments
+            </td>
+            <td>
+                <InputText id="Arguments" @bind-Value="Model.Arguments"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Arguments
+            </td>
+            <td>
+                <InputText id="WorkingDir" @bind-Value="Model.WorkingDir"/>
+            </td>
+        </tr>
+    </table>
+    
+    @if (!_isRunning)
+    {
+        <button type="submit" class="btn btn-primary mt-3" disabled="@_isRunning">Start</button>
+    }
+</EditForm>
+
+@if (_isRunning)
+{
+    <button class="btn btn-danger mt-3" @onclick="Stop">Stop</button>
+}
+
+
+<pre id="output" class="mt-5" style="border:1px solid;height: 75vh; overflow-y: scroll; overflow-x: scroll; max-width:80vw">
+    <code>
+        @_output
+    </code>
+</pre>

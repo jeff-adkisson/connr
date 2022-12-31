@@ -1,0 +1,13 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<button class="btn btn-primary mb-5" @onclick="Stop">Stop</button>
+
+<div style="border:1px solid; height: 75vh; overflow-y: scroll;">
+    <pre>
+        <code id="output">
+            @_output
+        </code>
+    </pre>
+</div>
