@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connr", "Connr\Connr.csproj", "{88E7314B-A38F-4DC0-9C88-A02BCEB6B1DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "connr", "connr\connr.csproj", "{88E7314B-A38F-4DC0-9C88-A02BCEB6B1DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

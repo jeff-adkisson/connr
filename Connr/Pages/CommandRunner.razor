@@ -1,34 +1,30 @@
-﻿@page "/"
-
-<PageTitle>Index</PageTitle>
-
-<EditForm Model="Model" OnValidSubmit="Start">
+﻿<EditForm Model="Model" OnValidSubmit="Start">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
     
     <table>
         <tr>
-            <td>
-                Command
+            <td style="text-align: right">
+                Command:
             </td>
-            <td>
-                <InputText id="Command" @bind-Value="Model.Command"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Arguments
-            </td>
-            <td>
-                <InputText id="Arguments" @bind-Value="Model.Arguments"/>
+            <td style="width:95%">
+                <InputText id="Command" @bind-Value="Model.Command"  style="width:100%"/>
             </td>
         </tr>
         <tr>
-            <td>
-                Arguments
+            <td style="text-align: right">
+                Arguments:
             </td>
-            <td>
-                <InputText id="WorkingDir" @bind-Value="Model.WorkingDir"/>
+            <td style="width:95%">
+                <InputText id="Arguments" @bind-Value="Model.Arguments"  style="width:100%"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                Working&nbsp;Directory:
+            </td>
+            <td style="width:95%">
+                <InputText id="WorkingDir" @bind-Value="Model.WorkingDir" style="width:100%"/>
             </td>
         </tr>
     </table>
@@ -39,13 +35,13 @@
     }
 </EditForm>
 
-@if (_isRunning)
+@if (_isRunning && !_isStopping)
 {
     <button class="btn btn-danger mt-3" @onclick="Stop">Stop</button>
 }
 
 
-<pre id="output" class="mt-5" style="border:1px solid;height: 75vh; overflow-y: scroll; overflow-x: scroll; max-width:80vw">
+<pre id="output" class="mt-5" style="border:1px solid;height: 50vh; overflow-y: scroll; overflow-x: scroll; max-width:80vw">
     <code>
         @_output
     </code>

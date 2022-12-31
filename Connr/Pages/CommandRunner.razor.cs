@@ -9,9 +9,15 @@ using Timer = System.Timers.Timer;
 
 namespace Connr.Pages;
 
-public partial class Index : IDisposable
+public partial class CommandRunner : IDisposable
 {
     [Inject] private IJSRuntime? JsRuntime { get; set; }
+    
+    [Parameter] public string Command { get; set; } = string.Empty;
+    
+    [Parameter] public string Arguments { get; set; } = string.Empty;
+    
+    [Parameter] public string WorkingDirectory { get; set; } = string.Empty;
 
     private const int MaxOutputLength = 1024 * 25;
 
@@ -21,6 +27,7 @@ public partial class Index : IDisposable
 
     private string _output = "";
     private bool _isRunning = false;
+    private bool _isStopping = false;
 
     private CommandModel Model { get; } = new();
 
@@ -28,6 +35,7 @@ public partial class Index : IDisposable
 
     public void Dispose()
     {
+        if (_isRunning) Stop(false);
         _timer?.Dispose();
         _tokenSource?.Cancel();
     }
@@ -57,6 +65,7 @@ public partial class Index : IDisposable
 
     private async Task Start()
     {
+        var start = DateTimeOffset.Now;
         PrepareOutputWindow();
 
         _timer.Start();
@@ -76,7 +85,7 @@ public partial class Index : IDisposable
         catch (Exception e)
         {
             _stdOutBuffer.AppendLine($"{Environment.NewLine}{e.Message}");
-            result = new CommandResult(1, DateTimeOffset.Now, DateTimeOffset.Now);
+            result = new CommandResult(1, start, DateTimeOffset.Now);
         }
 
         _isRunning = false;
@@ -94,13 +103,42 @@ public partial class Index : IDisposable
         WriteOutput(true);
     }
 
-    private void Stop()
+    private void Stop() => Stop(true);
+    
+    private void Stop(bool showOutput)
     {
-        _stdOutBuffer.AppendLine("Stopping...");
-        WriteOutput();
-        
-        _timer.Stop();
-        _tokenSource!.Cancel();
+        try
+        {
+            _isStopping = true;
+            if (showOutput)
+            {
+                _stdOutBuffer.AppendLine("Stopping...");
+                WriteOutput();
+            }
+
+            _timer.Stop();
+            _tokenSource!.Cancel();
+        }
+        catch (Exception ex)
+        {
+            if (showOutput)
+            {
+                _stdOutBuffer.AppendLine($"Stop error: {ex.Message}");
+                WriteOutput();
+            }
+        }
+        finally
+        {
+            _isStopping = false;
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Model.Command = Command;
+        Model.Arguments = Arguments;
+        Model.WorkingDir = WorkingDirectory;
     }
 
     public class CommandModel
