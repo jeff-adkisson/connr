@@ -37,7 +37,8 @@
 
 @if (_isRunning && !_isStopping)
 {
-    <button class="btn btn-danger mt-3" @onclick="Stop">Stop</button>
+    <button class="btn btn-danger mt-3 ml-3" @onclick="InjectControlC">Control-C</button>
+    <button class="btn btn-danger mt-3" @onclick="Kill">Kill Process</button>
 }
 
 
