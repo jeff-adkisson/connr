@@ -2,7 +2,7 @@
 
 public class NotificationService
 {
-    public event Action OnAppStopping;
+    public event Action? OnAppStopping;
     
     public void NotifyStopping()
     {

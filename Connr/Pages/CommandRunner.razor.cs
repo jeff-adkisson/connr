@@ -171,10 +171,8 @@ public partial class CommandRunner : IDisposable
         [Required] 
         public string? Command { get; set; } = "dotnet";
         
-        [Required]
         public string Arguments { get; set; } = "run";
         
-        [Required]
         public string WorkingDir { get; set; } = @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost";
     }
 
