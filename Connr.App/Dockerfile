@@ -5,14 +5,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Connr/Connr.csproj", "Connr/"]
-RUN dotnet restore "Connr/Connr.csproj"
+COPY ["Connr.App/Connr.App.csproj", "Connr.App/"]
+RUN dotnet restore "Connr.App/Connr.App.csproj"
 COPY . .
-WORKDIR "/src/Connr"
-RUN dotnet build "Connr.csproj" -c Release -o /app/build
+WORKDIR "/src/Connr.App"
+RUN dotnet build "Connr.App.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Connr.csproj" -c Release -o /app/publish
+RUN dotnet publish "Connr.App.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

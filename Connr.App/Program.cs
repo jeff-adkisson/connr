@@ -1,5 +1,6 @@
 
-using Connr.Services;
+using Connr.App.Services;
+using Connr.Process;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddNotificationService();
+builder.Services.AddProcessService();
 
 var app = builder.Build();
 

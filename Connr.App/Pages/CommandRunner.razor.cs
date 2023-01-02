@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Timers;
 using CliWrap;
-using Connr.Services;
+using Connr.App.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Timer = System.Timers.Timer;
 
-namespace Connr.Pages;
+namespace Connr.App.Pages;
 
 public partial class CommandRunner : IDisposable
 {

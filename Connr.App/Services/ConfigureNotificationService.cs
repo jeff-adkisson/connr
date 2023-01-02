@@ -1,4 +1,4 @@
-namespace Connr.Services;
+namespace Connr.App.Services;
 
 public static class ConfigureNotificationService
 {
