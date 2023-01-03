@@ -13,7 +13,6 @@ public sealed class Parameters
     public Dictionary<string, string?> EnvironmentVariables { get; set; } = new();
 
     public Credentials Credentials { get; set; } = Credentials.Default;
-    
+
     public int StopAfterSeconds { get; set; } = 0;
-    
 }

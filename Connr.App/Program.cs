@@ -1,4 +1,3 @@
-
 using Connr.Process;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +33,7 @@ app.Lifetime.ApplicationStopping.Register(() =>
             "Failed to stop all running processes. {processService.RunningProcessingCount} " +
             "processes remaining. Process IDs: {pids}", processService.RunningProcessingCount, pids);
     }
+
     Environment.Exit(processService.RunningProcessingCount == 0 ? Result.SuccessCode : Result.ErrorCode);
 });
 

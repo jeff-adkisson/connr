@@ -50,7 +50,8 @@ else if (CurrentProcess.State.IsStopping())
 @if (CurrentProcess.State.CanKill())
 {
     <button class="btn btn-danger ms-2 mt-3" @onclick="Kill">Kill</button>
-} else if (CurrentProcess.State.IsKilling())
+}
+else if (CurrentProcess.State.IsKilling())
 {
     <button class="btn btn-warning mt-3" type="button" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -80,7 +81,7 @@ else if (CurrentProcess.State.IsStopping())
         {
             <div></div>
         }
-        
+
         @if (CurrentProcess.Statistics.OutputLines > 0)
         {
             <div>

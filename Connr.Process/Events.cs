@@ -7,7 +7,7 @@ public sealed class Events
     public event Action<IProcessContainer>? ProcessRunning;
 
     public event Action<IProcessContainer>? ProcessStopping;
-    
+
     public event Action<IProcessContainer>? ProcessKilling;
 
     public event Action<IProcessContainer>? ProcessStopped;
@@ -30,12 +30,12 @@ public sealed class Events
     {
         ProcessStopping?.Invoke(processContainer);
     }
-    
+
     internal void RaiseProcessKilling(IProcessContainer processContainer)
     {
         ProcessKilling?.Invoke(processContainer);
     }
-    
+
     internal void RaiseProcessStopped(IProcessContainer processContainer)
     {
         ProcessStopped?.Invoke(processContainer);

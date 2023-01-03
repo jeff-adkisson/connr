@@ -1,8 +1,4 @@
-﻿using Stateless.Graph;
-
-namespace Connr.Process;
-
-using Stateless;
+﻿namespace Connr.Process;
 
 public sealed class ProcessContainer : IProcessContainer
 {
@@ -12,27 +8,36 @@ public sealed class ProcessContainer : IProcessContainer
         Parameters = parameters;
         Tokens = new Tokens(parameters);
         StateMachine = new StateMachine(this);
-        Result = Connr.Process.Result.Default;
+        Result = Process.Result.Default;
     }
+
+    private StateMachine StateMachine { get; }
 
     public string Id { get; }
     public Parameters Parameters { get; }
-    
+
     public Events Events { get; } = new();
 
     public IResult Result { get; set; }
-    
-    private StateMachine StateMachine { get; }
 
     public ProcessState State => StateMachine.CurrentState;
 
-    public void Start() => StateMachine.TriggerStateChange(ProcessTrigger.Start);
-    
-    public void Stop() => StateMachine.TriggerStateChange(ProcessTrigger.Stop);
-    
-    public void Kill() => StateMachine.TriggerStateChange(ProcessTrigger.Kill);
+    public void Start()
+    {
+        StateMachine.TriggerStateChange(ProcessTrigger.Start);
+    }
 
-    public Tokens Tokens { get; } 
+    public void Stop()
+    {
+        StateMachine.TriggerStateChange(ProcessTrigger.Stop);
+    }
+
+    public void Kill()
+    {
+        StateMachine.TriggerStateChange(ProcessTrigger.Kill);
+    }
+
+    public Tokens Tokens { get; }
 
     public Statistics Statistics { get; } = new();
 }

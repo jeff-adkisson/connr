@@ -7,6 +7,11 @@ public partial class Run : IDisposable
 {
     [Inject] private IProcessService ProcessService { get; set; } = null!;
 
+    void IDisposable.Dispose()
+    {
+        ProcessService.RunningProcessCountChanged -= ProcessCountChanged;
+    }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -26,11 +31,6 @@ public partial class Run : IDisposable
     private void KillAll()
     {
         Task.Run(() => ProcessService.KillAll(false)).ConfigureAwait(false);
-    }
-
-    void IDisposable.Dispose()
-    {
-        ProcessService.RunningProcessCountChanged -= ProcessCountChanged;
     }
 
     private void StopServer()

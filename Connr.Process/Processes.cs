@@ -11,7 +11,7 @@ public class Processes
     {
         _logger = logger;
     }
-    
+
     private ConcurrentDictionary<string, IProcessContainer> RunningProcesses { get; } = new();
 
     public int RunningProcessCount => RunningProcesses.Count;
@@ -29,12 +29,10 @@ public class Processes
         CallStopAllProcesses(false);
         var stopTryingAfter = DateTime.Now.AddSeconds(maxStopTimeSeconds);
         if (waitUntilAllStopped)
-        {
             _logger.LogInformation($"Waiting up to {maxStopTimeSeconds} seconds for all processes to stop");
-        }
         while (waitUntilAllStopped && DateTime.Now < stopTryingAfter && !RunningProcesses.IsEmpty)
             Task.Delay(250).Wait();
-        if (waitUntilAllStopped && killIfNotStopped && !RunningProcesses.IsEmpty) 
+        if (waitUntilAllStopped && killIfNotStopped && !RunningProcesses.IsEmpty)
             KillAll(waitUntilAllStopped, maxStopTimeSeconds);
     }
 
@@ -44,9 +42,7 @@ public class Processes
         CallStopAllProcesses(true);
         var stopTryingAfter = DateTime.Now.AddSeconds(maxStopTimeSeconds);
         if (waitUntilAllKilled)
-        {
             _logger.LogInformation($"Waiting up to {maxStopTimeSeconds} seconds for all processes to forceably stop");
-        }
         while (waitUntilAllKilled && DateTime.Now < stopTryingAfter && !RunningProcesses.IsEmpty)
             Task.Delay(250).Wait();
     }

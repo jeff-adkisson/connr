@@ -3,14 +3,14 @@
 public enum ProcessState
 {
     NotStarted,
-    
-        Starting,
-        
-            Running,
-                Stopping,
-                Killing,
-                
-                    Ended,
-                        EndedSuccess,
-                        EndedError
+
+    Starting,
+
+    Running,
+    Stopping,
+    Killing,
+
+    Ended,
+    EndedSuccess,
+    EndedError
 }

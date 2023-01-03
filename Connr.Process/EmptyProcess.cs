@@ -6,13 +6,11 @@ public class EmptyProcess : IProcessContainer
 
     internal EmptyProcess()
     {
-        Result = Connr.Process.Result.Default;
+        Result = Process.Result.Default;
     }
-    
-    public static EmptyProcess Instance() => _instance ??= new EmptyProcess();
-    
+
     public string Id => "Empty";
-    
+
     public void Start()
     {
         throw new NotSupportedException();
@@ -28,15 +26,20 @@ public class EmptyProcess : IProcessContainer
         throw new NotSupportedException();
     }
 
-    public Parameters Parameters { get; } = new Parameters();
-    
-    public Events Events { get; } = new Events();
+    public Parameters Parameters { get; } = new();
+
+    public Events Events { get; } = new();
 
     public IResult Result { get; set; }
-    
+
     public ProcessState State { get; } = ProcessState.NotStarted;
-    
-    public Tokens Tokens { get; } = new Tokens(new Parameters());
+
+    public Tokens Tokens { get; } = new(new Parameters());
 
     public Statistics Statistics { get; } = new();
+
+    public static EmptyProcess Instance()
+    {
+        return _instance ??= new EmptyProcess();
+    }
 }

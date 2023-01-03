@@ -2,24 +2,22 @@
 using CliWrap;
 using CliWrap.EventStream;
 using Stateless;
-using Stateless.Graph;
 
 namespace Connr.Process;
 
 public class StateMachine
 {
-    private const int SuccessCode = Connr.Process.Result.SuccessCode;
-    private const int ErrorCode = Connr.Process.Result.ErrorCode;
-    
+    private const int SuccessCode = Process.Result.SuccessCode;
+    private const int ErrorCode = Process.Result.ErrorCode;
+
     private readonly ProcessContainer _container;
-    private ProcessState _currentState = ProcessState.NotStarted;
 
     public StateMachine(ProcessContainer container)
     {
         _container = container;
         State = new StateMachine<ProcessState, ProcessTrigger>(
-            () => _currentState,
-            newState => _currentState = newState);
+            () => CurrentState,
+            newState => CurrentState = newState);
 
         ConfigureMachine();
     }
@@ -30,11 +28,7 @@ public class StateMachine
 
     private Statistics Statistics => _container.Statistics;
 
-    public ProcessState CurrentState
-    {
-        get => _currentState;
-        private set => _currentState = value;
-    }
+    public ProcessState CurrentState { get; private set; } = ProcessState.NotStarted;
 
     private Events Events => _container.Events;
 
@@ -118,13 +112,17 @@ public class StateMachine
             catch (TaskCanceledException taskEx)
             {
                 Statistics.StoppedAt = DateTime.Now;
-                var code = Tokens.StopTokenSource.IsCancellationRequested && !Tokens.KillTokenSource.IsCancellationRequested 
-                    ? SuccessCode 
+                var code = Tokens.StopTokenSource.IsCancellationRequested &&
+                           !Tokens.KillTokenSource.IsCancellationRequested
+                    ? SuccessCode
                     : ErrorCode;
                 var errorMsg = code == SuccessCode ? "" : taskEx.Message;
-                Result = new Result(code, Statistics) { Error = errorMsg} ;
-                HandleProcessEvent(new ExitedCommandEvent(code)); //does not get called otherwise when cancellation requested
-                await State.FireAsync(code == SuccessCode ? ProcessTrigger.EndWithSuccess : ProcessTrigger.EndWithError);
+                Result = new Result(code, Statistics) { Error = errorMsg };
+                HandleProcessEvent(
+                    new ExitedCommandEvent(code)); //does not get called otherwise when cancellation requested
+                await State.FireAsync(code == SuccessCode
+                    ? ProcessTrigger.EndWithSuccess
+                    : ProcessTrigger.EndWithError);
             }
             catch (Exception ex)
             {
@@ -134,12 +132,11 @@ public class StateMachine
             }
         }).ConfigureAwait(false);
     }
-    
+
     private async void HandleProcessEvent(CommandEvent evt)
     {
         switch (evt)
         {
-            
             case StartedCommandEvent startedCommandEvent:
                 OnStarted(startedCommandEvent);
                 break;
@@ -204,7 +201,10 @@ public class StateMachine
         Statistics.StoppedAt = DateTime.Now;
         Events.RaiseProcessStopped(_container);
     }
-    
 
-    internal void TriggerStateChange(ProcessTrigger trigger) => State.Fire(trigger);
+
+    internal void TriggerStateChange(ProcessTrigger trigger)
+    {
+        State.Fire(trigger);
+    }
 }

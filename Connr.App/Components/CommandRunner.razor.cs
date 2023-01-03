@@ -12,7 +12,7 @@ public partial class CommandRunner : IDisposable
     private string _output = "";
 
     [Inject] private IJSRuntime? JsRuntime { get; set; }
-    
+
     [Inject] private IProcessService ProcessService { get; set; } = null!;
 
     [Parameter] public string Command { get; set; } = string.Empty;
@@ -27,7 +27,6 @@ public partial class CommandRunner : IDisposable
 
     public void Dispose()
     {
-        if (CurrentProcess == null) return;
         CurrentProcess.Events.ProcessStarting -= OnProcessStarting;
         CurrentProcess.Events.ProcessRunning -= OnProcessRunning;
         CurrentProcess.Events.ProcessStopping -= OnProcessStopping;
@@ -82,7 +81,7 @@ public partial class CommandRunner : IDisposable
     {
         WriteOutput("Process stopping...");
     }
-    
+
     private void OnProcessStarting(IProcessContainer _)
     {
         WriteOutput("Process starting...");

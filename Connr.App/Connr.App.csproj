@@ -17,11 +17,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CliWrap" Version="3.6.0" />
+        <PackageReference Include="CliWrap" Version="3.6.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Connr.Process\Connr.Process.csproj" />
+        <ProjectReference Include="..\Connr.Process\Connr.Process.csproj"/>
     </ItemGroup>
 
 </Project>
