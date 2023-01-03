@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Connr.Process\Connr.Process.csproj" />
+        <ProjectReference Include="..\Connr.Process\Connr.Process.csproj" />
     </ItemGroup>
 
 </Project>

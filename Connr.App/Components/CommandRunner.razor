@@ -1,0 +1,92 @@
+﻿@using Connr.Process
+<EditForm Model="Model" OnValidSubmit="Start">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+    <table>
+        <tr>
+            <td style="text-align: right">
+                Command:
+            </td>
+            <td style="width:95%">
+                <InputText id="Command" @bind-Value="Model.Command" style="width:100%"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                Arguments:
+            </td>
+            <td style="width:95%">
+                <InputText id="Arguments" @bind-Value="Model.Arguments" style="width:100%"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                Working&nbsp;Directory:
+            </td>
+            <td style="width:95%">
+                <InputText id="WorkingDir" @bind-Value="Model.WorkingDirectory" style="width:100%"/>
+            </td>
+        </tr>
+    </table>
+
+    @if (CurrentProcess.State.CanStart())
+    {
+        <button type="submit" class="btn btn-primary mt-3">Start</button>
+    }
+</EditForm>
+
+@if (CurrentProcess.State.CanStop())
+{
+    <button class="btn btn-danger mt-3" @onclick="Stop">Stop</button>
+}
+else if (CurrentProcess.State.IsStopping())
+{
+    <button class="btn btn-warning mt-3" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="sr-only">Stopping...</span>
+    </button>
+}
+@if (CurrentProcess.State.CanKill())
+{
+    <button class="btn btn-danger ms-2 mt-3" @onclick="Kill">Kill</button>
+} else if (CurrentProcess.State.IsKilling())
+{
+    <button class="btn btn-warning mt-3" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="sr-only">Killing...</span>
+    </button>
+}
+
+<pre id="output" class="mt-5" 
+    style="border:1px solid;height: 50vh; overflow-y: scroll; overflow-x: scroll; max-width:80vw">
+    <code>
+        @_output
+    </code>
+</pre>
+@if (!CurrentProcess.State.IsNotStarted())
+{
+    <div class="d-flex justify-content-between">
+        <div>
+            State: @CurrentProcess.State
+        </div>
+        @if (CurrentProcess.Statistics.ErrorLines > 0)
+        {
+            <div>
+                Errors: @CurrentProcess.Statistics.ErrorLines, @CurrentProcess.Statistics.LastErrorAt.DateTime
+            </div>
+        }
+        else
+        {
+            <div></div>
+        }
+        
+        @if (CurrentProcess.Statistics.OutputLines > 0)
+        {
+            <div>
+                StdOut:
+                @CurrentProcess.Statistics.OutputLines lines, @CurrentProcess.Statistics.LastOutputAt.DateTime
+            </div>
+        }
+    </div>
+}

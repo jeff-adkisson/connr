@@ -1,20 +1,6 @@
 ﻿@page "/"
 
-<PageTitle>Console Runner</PageTitle>
+@using Connr.App.Feature
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-6">
-            <h5>Silo</h5>
-            <CommandRunner Command="dotnet"
-                           Arguments="run"
-                           WorkingDirectory="D:\projects\compass\HighMatch.Compass.AppServer.SiloHost"/>
-        </div>
-        <div class="col-6">
-            <h5>Admin Api</h5>
-            <CommandRunner Command="dotnet"
-                           Arguments="run"
-                           WorkingDirectory="D:\projects\compass\HighMatch.Compass.Api.Administration"/>
-        </div>
-    </div>
-</div>
+<PageTitle>Console Runner</PageTitle>
+<Run/>

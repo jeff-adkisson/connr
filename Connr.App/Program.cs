@@ -1,5 +1,4 @@
 
-using Connr.App.Services;
 using Connr.Process;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddNotificationService();
 builder.Services.AddProcessService();
 
 var app = builder.Build();
@@ -22,15 +20,21 @@ if (!app.Environment.IsDevelopment())
 
 app.Lifetime.ApplicationStopping.Register(() =>
 {
-    var notificationSvc = app.Services.GetRequiredService<NotificationService>();
-    Console.WriteLine("Application stopping... waiting 1500ms for stop");
-    notificationSvc.NotifyStopping();
-    Thread.Sleep(1500);
-});
-
-app.Lifetime.ApplicationStopped.Register(() =>
-{
-    Console.WriteLine("Application stopped... hopefully all child processes are dead");
+    var processService = app.Services.GetRequiredService<IProcessService>();
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation($"Application stopping... killing {processService.RunningProcessingCount} processes");
+    processService.StopAll();
+    logger.LogInformation($"-- Stopping: {processService.RunningProcessingCount} processes remaining");
+    if (processService.RunningProcessingCount > 0)
+    {
+        var pids =
+            string.Join(",",
+                processService.GetRunningProcesses().Select(s => s.Statistics.ProcessId));
+        logger.LogError(
+            "Failed to stop all running processes. {processService.RunningProcessingCount} " +
+            "processes remaining. Process IDs: {pids}", processService.RunningProcessingCount, pids);
+    }
+    Environment.Exit(processService.RunningProcessingCount == 0 ? Result.SuccessCode : Result.ErrorCode);
 });
 
 app.UseHttpsRedirection();

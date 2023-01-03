@@ -6,6 +6,6 @@ public static class ConfigureProcessService
 {
     public static void AddProcessService(this IServiceCollection services)
     {
-        services.AddSingleton<ProcessService>();
+        services.AddSingleton<IProcessService, ProcessService>();
     }
 }

@@ -8,35 +8,34 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Timer = System.Timers.Timer;
 
-namespace Connr.App.Pages;
+namespace Connr.App.Components;
 
-public partial class CommandRunner : IDisposable
+public partial class OgCommandRunner : IDisposable
 {
-    [Inject] private NotificationService NotificationService { get; set; } = null!;
-    
-    [Inject] private IJSRuntime? JsRuntime { get; set; }
-    
-    [Parameter] public string Command { get; set; } = string.Empty;
-    
-    [Parameter] public string Arguments { get; set; } = string.Empty;
-    
-    [Parameter] public string WorkingDirectory { get; set; } = string.Empty;
-
     private const int MaxOutputLength = 1024 * 25;
 
     private readonly StringBuilder _stdOutBuffer = new();
-    
+
     private readonly Timer _timer = new(1000) { AutoReset = true };
 
-    private string _output = "";
+    private CancellationTokenSource? _ctrlCTokenSource;
     private bool _isRunning = false;
     private bool _isStopping = false;
 
-    private CommandModel Model { get; } = new();
-
     private CancellationTokenSource? _killTokenSource;
 
-    private CancellationTokenSource? _ctrlCTokenSource;
+    private string _output = "";
+    [Inject] private NotificationService NotificationService { get; set; } = null!;
+
+    [Inject] private IJSRuntime? JsRuntime { get; set; }
+
+    [Parameter] public string Command { get; set; } = string.Empty;
+
+    [Parameter] public string Arguments { get; set; } = string.Empty;
+
+    [Parameter] public string WorkingDirectory { get; set; } = string.Empty;
+
+    private CommandModel Model { get; } = new();
 
     public void Dispose()
     {
@@ -61,7 +60,7 @@ public partial class CommandRunner : IDisposable
     private void WriteOutput(bool clear = false)
     {
         if (clear) _output = "";
-        
+
         var newOutput = _stdOutBuffer.ToString();
         _stdOutBuffer.Clear();
         var currentLen = _output.Length + newOutput.Length;
@@ -84,7 +83,7 @@ public partial class CommandRunner : IDisposable
             _killTokenSource = killTokenSource;
             using var ctrlCTokenSource = new CancellationTokenSource();
             _ctrlCTokenSource = ctrlCTokenSource;
-            
+
             _isRunning = true;
             result = await Cli.Wrap(Model.Command!)
                 .WithArguments(Model.Arguments)
@@ -122,8 +121,11 @@ public partial class CommandRunner : IDisposable
         Kill();
     }
 
-    private void Kill() => Kill(true);
-    
+    private void Kill()
+    {
+        Kill(true);
+    }
+
     private void Kill(bool showOutput)
     {
         try
@@ -165,16 +167,6 @@ public partial class CommandRunner : IDisposable
         Model.WorkingDir = WorkingDirectory;
     }
 
-    public class CommandModel
-    {
-        [Required] 
-        public string? Command { get; set; } = "dotnet";
-        
-        public string Arguments { get; set; } = "run";
-        
-        public string WorkingDir { get; set; } = @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost";
-    }
-
     private void InjectControlC()
     {
         try
@@ -200,5 +192,14 @@ public partial class CommandRunner : IDisposable
             _isStopping = false;
             _isRunning = false;
         }
+    }
+
+    public class CommandModel
+    {
+        [Required] public string? Command { get; set; } = "dotnet";
+
+        public string Arguments { get; set; } = "run";
+
+        public string WorkingDir { get; set; } = @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost";
     }
 }

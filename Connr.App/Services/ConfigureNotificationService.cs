@@ -1,9 +1,0 @@
-namespace Connr.App.Services;
-
-public static class ConfigureNotificationService
-{
-    public static void AddNotificationService(this IServiceCollection services)
-    {
-        services.AddSingleton<NotificationService>();
-    }
-}
