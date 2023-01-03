@@ -34,7 +34,8 @@ public class Processes
         }
         while (waitUntilAllStopped && DateTime.Now < stopTryingAfter && !RunningProcesses.IsEmpty)
             Task.Delay(250).Wait();
-        if (killIfNotStopped && !RunningProcesses.IsEmpty) KillAll(waitUntilAllStopped, maxStopTimeSeconds);
+        if (waitUntilAllStopped && killIfNotStopped && !RunningProcesses.IsEmpty) 
+            KillAll(waitUntilAllStopped, maxStopTimeSeconds);
     }
 
     public void KillAll(bool waitUntilAllKilled = true, int maxStopTimeSeconds = 15)
