@@ -101,9 +101,14 @@ public partial class CommandRunner : IDisposable
 
     private void OnProcessStopped(IProcessContainer process)
     {
-        WriteOutput($"Process ID {process.Statistics.ProcessId} stopped");
-        WriteOutput($"-- Final State: {process.State}");
-        WriteOutput($"-- Run Time: {process.Statistics.StoppedAt - process.Statistics.StartedAt}");
+        var output =
+            $"""
+            Process ID {process.Statistics.ProcessId} stopped
+               Final State: {process.State}
+               Run Time: {process.Statistics.StoppedAt - process.Statistics.StartedAt}
+            """;
+
+        WriteOutput(output);
     }
 
     private void OnProcessRunning(IProcessContainer process)
@@ -118,9 +123,13 @@ public partial class CommandRunner : IDisposable
 
     private void PrepareOutputWindow()
     {
-        WriteOutput("Starting...", true);
-        WriteOutput($"- {Model.Command} {Model.Arguments}");
-        WriteOutput($"- {Model.WorkingDirectory}{Environment.NewLine}");
+        var toWrite = 
+            $"""
+            Starting process...
+               {Model.Command} {Model.Arguments}
+               {Model.WorkingDirectory} 
+            """;                
+        WriteOutput(toWrite, true);
     }
 
     private void Stop()

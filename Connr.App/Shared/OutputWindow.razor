@@ -11,15 +11,13 @@
         @foreach (var line in _lines)
         {
             <tr @key="@line.Value.Id">
-                <td>
+                <td style="vertical-align: top">
                     @(line.Value.Number > 0 ? line.Value.Number.ToString() : "")
                 </td>
                 <td>
-                    <pre>
-                        <code>
-                            @line.Value.Output
-                        </code>
-                    </pre>
+                    <code style="white-space:pre;">
+                        @line.Value.Output
+                    </code>
                 </td>
             </tr>
         }
