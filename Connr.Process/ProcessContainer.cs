@@ -1,4 +1,6 @@
-﻿namespace Connr.Process;
+﻿using System.Collections.Concurrent;
+
+namespace Connr.Process;
 
 public sealed class ProcessContainer : IProcessContainer
 {
@@ -9,6 +11,8 @@ public sealed class ProcessContainer : IProcessContainer
         Tokens = new Tokens(parameters);
         StateMachine = new StateMachine(this);
         Result = Process.Result.Default;
+        Statistics = new Statistics();
+        Events = new Events(Statistics);
     }
 
     private StateMachine StateMachine { get; }
@@ -16,7 +20,7 @@ public sealed class ProcessContainer : IProcessContainer
     public string Id { get; }
     public Parameters Parameters { get; }
 
-    public Events Events { get; } = new();
+    public Events Events { get; }
 
     public IResult Result { get; set; }
 
@@ -39,5 +43,5 @@ public sealed class ProcessContainer : IProcessContainer
 
     public Tokens Tokens { get; }
 
-    public Statistics Statistics { get; } = new();
+    public Statistics Statistics { get; }
 }

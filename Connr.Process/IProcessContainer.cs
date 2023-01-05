@@ -1,4 +1,6 @@
-﻿namespace Connr.Process;
+﻿using System.Collections.Concurrent;
+
+namespace Connr.Process;
 
 public interface IProcessContainer
 {

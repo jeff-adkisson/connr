@@ -1,26 +1,18 @@
-﻿<div class="container-fluid">
-    <div class="row">
-        <div class="col-6">
-            <h5>Silo</h5>
-            <CommandRunner Command="dotnet"
-                           Arguments="run"
-                           WorkingDirectory="D:\projects\compass\HighMatch.Compass.AppServer.SiloHost"/>
-        </div>
-        <div class="col-6">
-            <h5>Admin Api</h5>
-            <CommandRunner Command="dotnet"
-                           Arguments="run"
-                           WorkingDirectory="D:\projects\compass\HighMatch.Compass.Api.Administration"/>
-        </div>
-    </div>
-
-    @if (ProcessService.RunningProcessingCount > 0)
+﻿@{
+    var parmListGroups = RunList!.Chunk(2);
+    foreach (var parmListGroup in parmListGroups)
     {
-        <div class="row mt-5">
-            <div class="col-12">
-                <button class="btn btn-danger mt-3" @onclick="StopAll">Stop ALL</button>
-                <button class="btn btn-danger mt-3 ms-2" @onclick="KillAll">Kill ALL</button>
-            </div>
-        </div>
+        <MudGrid>
+            @foreach (var parm in parmListGroup)
+            {
+                <MudItem xs="6">
+                    <CommandRunner Command="@parm.Parameters.Command"
+                                   Arguments="@(string.Join(" ", parm.Parameters.Arguments))"
+                                   WorkingDirectory="@parm.Parameters.WorkingDirectory"
+                                   Name="@parm.Parameters.Name"
+                                   ProcessContainer="@parm.ProcessContainer"/>
+                </MudItem>
+            }
+        </MudGrid>
     }
-</div>
+}

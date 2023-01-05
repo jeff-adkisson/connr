@@ -1,0 +1,27 @@
+﻿<MudSimpleTable 
+    id="@Id"
+    Class="@Class"
+    Dense="true" 
+    Bordered="true" 
+    Striped="true" 
+    FixedHeader="true" 
+    Outlined="true" 
+    Style="height:50vh">
+    <tbody>
+        @foreach (var line in _lines)
+        {
+            <tr @key="@line.Value.Id">
+                <td>
+                    @(line.Value.Number > 0 ? line.Value.Number.ToString() : "")
+                </td>
+                <td>
+                    <pre>
+                        <code>
+                            @line.Value.Output
+                        </code>
+                    </pre>
+                </td>
+            </tr>
+        }
+    </tbody>
+</MudSimpleTable>

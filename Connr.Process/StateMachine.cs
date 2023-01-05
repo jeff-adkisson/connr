@@ -1,7 +1,9 @@
 ﻿using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 using CliWrap;
 using CliWrap.EventStream;
 using Stateless;
+using Stateless.Graph;
 
 namespace Connr.Process;
 
@@ -74,13 +76,30 @@ public class StateMachine
             .SubstateOf(ProcessState.Ended)
             .OnEntry(OnEndedError);
 
-        //var viz = UmlDotGraph.Format(State.GetInfo());
+        var viz = UmlDotGraph.Format(State.GetInfo());
     }
 
     private void Stop()
     {
         Events.RaiseProcessStopping(_container);
         Tokens.StopTokenSource.Cancel();
+
+        if (OperatingSystem.IsWindows()) return;
+        IssueFriendlyKillRequest();
+    }
+
+    //graceful stop does not always work on non-windows systems
+    //https://blog.steadycoding.com/how-to-send-sigterm-and-more-to-a-net-core-process/
+    private void IssueFriendlyKillRequest()
+    {
+        var killArgs = $"-s TERM {_container.Statistics.ProcessId}";
+        Console.WriteLine($"Issuing friendly kill request: kill {killArgs}");
+        Task.Run(async () =>
+        {
+            var result = await Cli.Wrap("kill")
+                .WithArguments(killArgs)
+                .ExecuteAsync();
+        }).ConfigureAwait(false);
     }
 
     private void Kill()
@@ -158,17 +177,15 @@ public class StateMachine
         }
     }
 
+    private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+
     private void OnStandardError(StandardErrorCommandEvent evt)
     {
-        Statistics.ErrorLines++;
-        Statistics.LastErrorAt = DateTimeOffset.Now;
         Events.RaiseErrorOutputEmitted(evt.Text);
     }
 
     private void OnStandardOutput(StandardOutputCommandEvent evt)
     {
-        Statistics.OutputLines++;
-        Statistics.LastOutputAt = DateTimeOffset.Now;
         Events.RaiseStandardOutputEmitted(evt.Text);
     }
 

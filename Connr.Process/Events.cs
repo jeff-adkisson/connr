@@ -2,6 +2,13 @@
 
 public sealed class Events
 {
+    private readonly Statistics _statistics;
+
+    public Events(Statistics statistics)
+    {
+        _statistics = statistics;
+    }
+    
     public event Action<IProcessContainer>? ProcessStarting;
 
     public event Action<IProcessContainer>? ProcessRunning;
@@ -12,9 +19,9 @@ public sealed class Events
 
     public event Action<IProcessContainer>? ProcessStopped;
 
-    public event Action<string>? StandardOutputEmitted;
+    public event Action<Line>? StandardOutputEmitted;
 
-    public event Action<string>? ErrorOutputEmitted;
+    public event Action<Line>? ErrorOutputEmitted;
 
     internal void RaiseProcessStarting(IProcessContainer processContainer)
     {
@@ -43,11 +50,13 @@ public sealed class Events
 
     internal void RaiseStandardOutputEmitted(string output)
     {
-        StandardOutputEmitted?.Invoke(output);
+        var line = _statistics.AddToRecentLines(output, true);
+        StandardOutputEmitted?.Invoke(line);
     }
 
     internal void RaiseErrorOutputEmitted(string error)
     {
-        ErrorOutputEmitted?.Invoke(error);
+        var line = _statistics.AddToRecentLines(error, false);
+        ErrorOutputEmitted?.Invoke(line);
     }
 }

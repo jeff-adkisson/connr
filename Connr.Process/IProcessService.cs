@@ -11,6 +11,8 @@ public interface IProcessService
 
     IReadOnlyList<IProcessContainer> GetRunningProcesses();
 
+    bool TryGetProcesses(Parameters parametersToMatch, out List<IProcessContainer> runningProcesses);
+
     event Action<IProcessContainer> ProcessStarted;
 
     event Action<IProcessContainer> ProcessEnded;

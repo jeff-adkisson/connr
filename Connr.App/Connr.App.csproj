@@ -17,11 +17,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CliWrap" Version="3.6.0"/>
+        <PackageReference Include="MudBlazor" Version="6.1.7" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Connr.Process\Connr.Process.csproj"/>
+        <ProjectReference Include="..\Connr.Process\Connr.Process.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
     </ItemGroup>
 
 </Project>

@@ -36,6 +36,27 @@ public class ProcessService : IProcessService
         return Processes.GetRunningProcesses();
     }
 
+    /// <summary>
+    /// Gets a list of processes that match an instance of <see cref="Parameters"/>.
+    /// Returns false if no matches.
+    /// </summary>
+    /// <param name="parametersToMatch"></param>
+    /// <param name="runningProcesses"></param>
+    /// <returns></returns>
+    public bool TryGetProcesses(Parameters parametersToMatch, out List<IProcessContainer> runningProcesses)
+    {
+        runningProcesses = new List<IProcessContainer>();
+        var currentProcesses = GetRunningProcesses();
+        foreach (var runningProcess in currentProcesses)
+        {
+            if (runningProcess.Parameters.Equals(parametersToMatch))
+            {
+                runningProcesses.Add(runningProcess);
+            }
+        }
+        return runningProcesses.Any();
+    }
+
     public int RunningProcessingCount => Processes.RunningProcessCount;
 
     public event Action<IProcessContainer>? ProcessStarted;

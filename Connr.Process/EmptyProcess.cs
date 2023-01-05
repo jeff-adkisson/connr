@@ -7,6 +7,8 @@ public class EmptyProcess : IProcessContainer
     internal EmptyProcess()
     {
         Result = Process.Result.Default;
+        Statistics = new Statistics();
+        Events = new Events(Statistics);
     }
 
     public string Id => "Empty";
@@ -28,7 +30,7 @@ public class EmptyProcess : IProcessContainer
 
     public Parameters Parameters { get; } = new();
 
-    public Events Events { get; } = new();
+    public Events Events { get; }
 
     public IResult Result { get; set; }
 
@@ -36,7 +38,7 @@ public class EmptyProcess : IProcessContainer
 
     public Tokens Tokens { get; } = new(new Parameters());
 
-    public Statistics Statistics { get; } = new();
+    public Statistics Statistics { get; } 
 
     public static EmptyProcess Instance()
     {

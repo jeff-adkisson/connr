@@ -1,0 +1,25 @@
+﻿@if (ProcessService.RunningProcessingCount > 0)
+{
+    @if (!_isStoppingAll && !_isKillingAll)
+    {
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="StopAllProcesses">
+            Stop All
+        </MudButton>
+    }
+    
+    @if (_isStoppingAll)
+    {
+        <SpinnerButton Label="Stopping All..." IsDisabled="true" ButtonColor="Color.Secondary" SpinnerColor="Color.Success"/>
+    }
+
+    @if (!_isKillingAll)
+    {
+        <MudButton Class="ml-2" Variant="Variant.Filled" Color="Color.Error" OnClick="KillAllProcesses">
+            Kill All
+        </MudButton>
+    }
+    else
+    {
+        <SpinnerButton Label="Killing All..." IsDisabled="true" ButtonColor="Color.Error" SpinnerColor="Color.Error"/>
+    }
+}

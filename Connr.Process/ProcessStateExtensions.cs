@@ -37,6 +37,11 @@ public static class ProcessStateExtensions
         return state is ProcessState.Stopping or ProcessState.Killing;
     }
 
+    public static bool IsStopped(this ProcessState state)
+    {
+        return state is ProcessState.EndedSuccess or ProcessState.EndedError;
+    }
+
     public static bool IsKilling(this ProcessState state)
     {
         return state is ProcessState.Killing;

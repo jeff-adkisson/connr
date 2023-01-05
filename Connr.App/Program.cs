@@ -1,4 +1,5 @@
 using Connr.Process;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddProcessService();
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 
@@ -20,8 +22,10 @@ if (!app.Environment.IsDevelopment())
 app.Lifetime.ApplicationStopping.Register(() =>
 {
     var processService = app.Services.GetRequiredService<IProcessService>();
+    if (processService.RunningProcessingCount == 0) return;
+    
     var logger = app.Services.GetRequiredService<ILogger<Program>>();
-    logger.LogInformation($"Application stopping... killing {processService.RunningProcessingCount} processes");
+    logger.LogInformation($"Application stopping... stopping {processService.RunningProcessingCount} processes");
     processService.StopAll();
     logger.LogInformation($"-- Stopping: {processService.RunningProcessingCount} processes remaining");
     if (processService.RunningProcessingCount > 0)
