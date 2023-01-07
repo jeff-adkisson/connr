@@ -19,6 +19,9 @@ public partial class RelatedPorts : IDisposable
     [Parameter] public ProcessState ProcessState { get; set; }
 
     [Parameter] public string Class { get; set; } = "";
+    
+    [Parameter] public EventCallback OnClosed { get; set; }
+
 
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
@@ -93,6 +96,7 @@ public partial class RelatedPorts : IDisposable
     {
         _relatedPorts = null;
         IsLoading = false;
+        OnClosed.InvokeAsync();
     }
 
     internal bool IsLoading { get; set; }

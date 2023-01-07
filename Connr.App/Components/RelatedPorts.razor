@@ -1,4 +1,5 @@
 ﻿@using Connr.Process
+@using DotNetstat
 @if (IsVisible)
 {
     var showKillProcess = ProcessState.IsRunning();
@@ -49,12 +50,36 @@
                 {
                     <MudTh/>
                 }
-                <MudTh>Process</MudTh>
-                <MudTh>Port</MudTh>
-                <MudTh>Address</MudTh>
-                <MudTh>Protocol</MudTh>
-                <MudTh>State</MudTh>
-                <MudTh>Module</MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.ProcessId)">
+                        Process
+                    </MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.LocalPort)">
+                        Port
+                    </MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.LocalAddress)">
+                        Process
+                    </MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.Protocol)">
+                        Protocol
+                    </MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.State)">
+                        State
+                    </MudTableSortLabel>
+                </MudTh>
+                <MudTh>
+                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.ModuleName)">
+                        Module
+                    </MudTableSortLabel>
+                </MudTh>
             </MudTHeadRow>
         </HeaderContent>
         <RowTemplate>

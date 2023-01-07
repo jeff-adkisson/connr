@@ -10,17 +10,22 @@ public partial class ProcessTree
     [Parameter] public int ProcessId { get; set; }
 
     [Parameter] public ProcessState ProcessState { get; set; }
-    
+
     [Parameter] public string Class { get; set; } = "";
 
+    [Parameter] public EventCallback OnClosed { get; set; }
+
     internal bool IsVisible => !IsLoading && TreeItems.Any();
-    
+
     internal bool IsLoading { get; set; }
-    
+
+    private HashSet<TreeItemData> TreeItems { get; set; } = new();
+
     private void Hide()
     {
         IsLoading = false;
         TreeItems.Clear();
+        OnClosed.InvokeAsync();
     }
 
     internal void ShowProcessTree()
@@ -33,29 +38,24 @@ public partial class ProcessTree
         IsLoading = true;
         var tree = process.GetProcessTree();
         TreeItems.Clear();
-        AddChildren(tree, TreeItems);
+        AddChildren(tree, TreeItems, true);
         IsLoading = false;
         InvokeAsync(StateHasChanged);
     }
 
-    private void AddChildren(DotNetstat.ProcessTree tree,  HashSet<TreeItemData> treeItemData)
+    private void AddChildren(DotNetstat.ProcessTree tree, HashSet<TreeItemData> treeItemData, bool expand)
     {
-        var thisTreeItem = new TreeItemData() { Title = $"{tree.Id}, {tree.ProcessName}" };
+        var thisTreeItem = new TreeItemData { Title = $"{tree.Id}: {tree.ProcessName}", IsExpanded = expand };
         treeItemData.Add(thisTreeItem);
-        foreach (var child in tree.ChildProcesses)
-        {
-            AddChildren(child, thisTreeItem.TreeItems);
-        }
+        foreach (var child in tree.ChildProcesses.OrderBy(p => p.Id)) AddChildren(child, thisTreeItem.TreeItems, false);
     }
-    
+
     internal class TreeItemData
     {
         public string Title { get; init; } = "";
-        
+
         public bool IsExpanded { get; set; }
 
         public HashSet<TreeItemData> TreeItems { get; set; } = new();
     }
-
-    private HashSet<TreeItemData> TreeItems { get; set;  } = new();
 }

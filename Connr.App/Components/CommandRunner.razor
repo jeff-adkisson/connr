@@ -135,11 +135,13 @@
     </div>
     
     <RelatedPorts @ref="RelatedPortsRef"
+                  OnClosed="OnRelatedComponentClosed"
                   Class="mt-5"
                   ProcessId="CurrentProcess.Statistics.ProcessId"
                   ProcessState="CurrentProcess.State"/>
     
     <ProcessTree @ref="ProcessTreeRef"
+                 OnClosed="OnRelatedComponentClosed"
                  Class="mt-5"
                  ProcessId="CurrentProcess.Statistics.ProcessId"
                  ProcessState="CurrentProcess.State"/>

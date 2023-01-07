@@ -196,6 +196,7 @@ public partial class CommandRunner : IDisposable
     private void ShowProcessTree()
     {
         ProcessTreeRef.IsLoading = true;
+        StateHasChanged();
         Task.Run(() =>
         {
             ProcessTreeRef.ShowProcessTree();
@@ -206,10 +207,16 @@ public partial class CommandRunner : IDisposable
     private void ShowRelatedPorts()
     {
         RelatedPortsRef.IsLoading = true;
+        StateHasChanged();
         Task.Run(() =>
         {
             RelatedPortsRef.ShowRelatedPorts();
             InvokeAsync(StateHasChanged);
         }).ConfigureAwait(false);
+    }
+
+    private void OnRelatedComponentClosed()
+    {
+        StateHasChanged();
     }
 }
