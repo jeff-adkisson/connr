@@ -120,8 +120,10 @@ public sealed class Events : IDisposable
         }
     }
 
-    private string[] GetLines(string[] lines)
+    private static IEnumerable<string> GetLines(string[] lines)
     {
+        if (lines.Length == 0) return lines;
+        
         var lineCount = 1;
         var recombined = new List<string>();
         

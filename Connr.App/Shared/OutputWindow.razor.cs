@@ -17,7 +17,6 @@ public partial class OutputWindow : IDisposable
     [Parameter] public string Class { get; set; } = "";
 
     private long _dictIndex = 0;
-    private int _lineNbr = 1;
     private readonly ConcurrentDictionary<long, Line> _lines = new();
     private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
     private Timer _timer = new(250) { AutoReset = true };
@@ -47,11 +46,11 @@ public partial class OutputWindow : IDisposable
 
     public void AppendOutput(Line line, bool doNotNumber = false)
     {
+        if (string.IsNullOrWhiteSpace(line.Output)) return;
         try
         {
             _semaphore.Wait();
             var idx = _dictIndex++;
-            var nbr = doNotNumber ? "" : (_lineNbr++).ToString();
             _lines.TryAdd(idx, line);
             if (_lines.Count > 1000)
             {

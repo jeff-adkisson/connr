@@ -1,0 +1,38 @@
+﻿@using Connr.Process
+@if (IsVisible)
+{
+    <MudPaper Outlined="true" Class="@Class">
+        <div class="d-flex justify-space-between align-start">
+            <MudTreeView 
+                T="TreeItemData" 
+                Items="TreeItems" 
+                MaxHeight="200px" 
+                Class="overflow-y-auto">
+                <ItemTemplate>
+                    <MudTreeViewItem
+                        @bind-Expanded="@context.IsExpanded"
+                        Items="@context.TreeItems"
+                        Value="@context"
+                        Text="@context.Title"/>
+                </ItemTemplate>
+            </MudTreeView>
+            <div>
+                @if (ProcessState.IsRunning())
+                {
+                    <MudTooltip Text="Refresh Process Tree">
+                        <MudIconButton
+                            Color="Color.Info"
+                            Icon="@Icons.Material.Filled.Refresh"
+                            OnClick="ShowProcessTree"/>
+                    </MudTooltip>
+                }
+                <MudTooltip Text="Hide Process Tree">
+                    <MudIconButton
+                        Color="Color.Default"
+                        Icon="@Icons.Material.Filled.Close"
+                        OnClick="Hide"/>
+                </MudTooltip>
+            </div>
+        </div>
+    </MudPaper>
+}

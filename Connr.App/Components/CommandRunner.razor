@@ -1,4 +1,5 @@
 ﻿@using Connr.Process
+@using Processes = DotNetstat.Processes
 <EditForm Model="Model" OnValidSubmit="Start">
     <DataAnnotationsValidator/>
     <MudCard>
@@ -68,6 +69,33 @@
             {
                 <MudButton Class="ml-2" Variant="Variant.Filled" Color="Color.Default" OnClick="Clear">Clear</MudButton>
             }
+            <MudSpacer></MudSpacer>
+            @if (CurrentProcess.State.IsRunning())
+            {
+                @if (!ProcessTreeRef.IsVisible)
+                {
+                    <MudTooltip Text="Show process tree">
+                        <MudButton StartIcon="@Icons.Material.Filled.AccountTree"
+                                   Variant="Variant.Filled" Color="Color.Secondary" OnClick="ShowProcessTree">Tree</MudButton>
+                    </MudTooltip>
+                } else if (ProcessTreeRef.IsLoading)
+                {
+                    <SpinnerButton Label="Tree..."/>
+                }
+
+                @if (!RelatedPortsRef.IsVisible)
+                {
+                    <MudTooltip Text="Scan process tree for all related network ports">
+                        <MudButton
+                            Class="ml-2"
+                            StartIcon="@Icons.Material.Filled.Power"
+                            Variant="Variant.Filled" Color="Color.Secondary" OnClick="ShowRelatedPorts">Ports</MudButton>
+                    </MudTooltip>
+                } else if (RelatedPortsRef.IsLoading)
+                {
+                    <SpinnerButton Label="Ports..."/>
+                }
+            }
         </MudCardActions>
     </MudCard>
 </EditForm>
@@ -105,4 +133,14 @@
             </div>
         }
     </div>
+    
+    <RelatedPorts @ref="RelatedPortsRef"
+                  Class="mt-5"
+                  ProcessId="CurrentProcess.Statistics.ProcessId"
+                  ProcessState="CurrentProcess.State"/>
+    
+    <ProcessTree @ref="ProcessTreeRef"
+                 Class="mt-5"
+                 ProcessId="CurrentProcess.Statistics.ProcessId"
+                 ProcessState="CurrentProcess.State"/>
 }

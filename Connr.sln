@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "connr", "Connr.App\Connr.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connr.Process", "Connr.Process\Connr.Process.csproj", "{33DD5F7A-60BA-4607-BF99-0434A508EA82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetstat", "DotNetstat\DotNetstat\DotNetstat.csproj", "{849D7832-2A38-4CDF-A4AD-9DDB5BF77174}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{33DD5F7A-60BA-4607-BF99-0434A508EA82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33DD5F7A-60BA-4607-BF99-0434A508EA82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33DD5F7A-60BA-4607-BF99-0434A508EA82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{849D7832-2A38-4CDF-A4AD-9DDB5BF77174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{849D7832-2A38-4CDF-A4AD-9DDB5BF77174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{849D7832-2A38-4CDF-A4AD-9DDB5BF77174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{849D7832-2A38-4CDF-A4AD-9DDB5BF77174}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

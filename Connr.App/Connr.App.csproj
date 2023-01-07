@@ -22,6 +22,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Connr.Process\Connr.Process.csproj" />
+        <ProjectReference Include="..\DotNetstat\DotNetstat\DotNetstat.csproj" />
     </ItemGroup>
 
     <ItemGroup>

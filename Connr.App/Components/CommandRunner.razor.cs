@@ -11,6 +11,10 @@ public partial class CommandRunner : IDisposable
     private const int MaxOutputLength = 1024 * 50;
 
     private OutputWindow OutputWindowRef { get; set; } = null!;
+    
+    private RelatedPorts RelatedPortsRef { get; set; } = null!;
+    
+    private ProcessTree ProcessTreeRef { get; set; } = null!;
 
     [Inject] private IProcessService ProcessService { get; set; } = null!;
     
@@ -187,5 +191,25 @@ public partial class CommandRunner : IDisposable
     private void Clear()
     {
         CurrentProcess = EmptyProcess.Instance();
+    }
+
+    private void ShowProcessTree()
+    {
+        ProcessTreeRef.IsLoading = true;
+        Task.Run(() =>
+        {
+            ProcessTreeRef.ShowProcessTree();
+            InvokeAsync(StateHasChanged);
+        }).ConfigureAwait(false);
+    }
+    
+    private void ShowRelatedPorts()
+    {
+        RelatedPortsRef.IsLoading = true;
+        Task.Run(() =>
+        {
+            RelatedPortsRef.ShowRelatedPorts();
+            InvokeAsync(StateHasChanged);
+        }).ConfigureAwait(false);
     }
 }
