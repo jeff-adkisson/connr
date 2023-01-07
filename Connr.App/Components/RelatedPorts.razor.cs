@@ -59,7 +59,7 @@ public partial class RelatedPorts : IDisposable
         }
 
         IsLoading = true;
-        var netstat = Netstat.Call();
+        var netstat = Netstat.Call().Lines;
 
         _relatedPorts = netstat
             .ByProcessId(ProcessId)
