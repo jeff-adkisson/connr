@@ -30,7 +30,7 @@ public partial class CommandRunner : IDisposable
 
     private CommandModel Model { get; } = new();
 
-    private IProcessContainer CurrentProcess { get; set; } = EmptyProcess.Instance();
+    private IProcessContainer CurrentProcess { get; set; } = EmptyProcess.Instance;
 
     public void Dispose()
     {
@@ -190,7 +190,7 @@ public partial class CommandRunner : IDisposable
 
     private void Clear()
     {
-        CurrentProcess = EmptyProcess.Instance();
+        CurrentProcess = EmptyProcess.Instance;
     }
 
     private void ShowProcessTree()

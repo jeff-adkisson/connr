@@ -30,15 +30,15 @@ app.Lifetime.ApplicationStopping.Register(() =>
     logger.LogInformation($"-- Stopping: {processService.RunningProcessingCount} processes remaining");
     if (processService.RunningProcessingCount > 0)
     {
-        var pids =
+        var processIds =
             string.Join(",",
                 processService.GetRunningProcesses().Select(s => s.Statistics.ProcessId));
         logger.LogError(
             "Failed to stop all running processes. {processService.RunningProcessingCount} " +
-            "processes remaining. Process IDs: {pids}", processService.RunningProcessingCount, pids);
+            "processes remaining. Process IDs: {pids}", processService.RunningProcessingCount, processIds);
     }
 
-    Environment.Exit(processService.RunningProcessingCount == 0 ? Result.SuccessCode : Result.ErrorCode);
+    Environment.Exit(processService.RunningProcessingCount == 0 ? Codes.Success : Codes.Error);
 });
 
 app.UseHttpsRedirection();

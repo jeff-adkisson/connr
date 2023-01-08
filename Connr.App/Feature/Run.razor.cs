@@ -36,7 +36,7 @@ public partial class Run
         return result;
     }
 
-    private List<Parameters> GetDefaultParameterList()
+    private static List<Parameters> GetDefaultParameterList()
     {
         return new List<Parameters>()
         {
@@ -59,15 +59,5 @@ public partial class Run
                     : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Administration"
             }
         };
-    }
-
-    private void StopAll()
-    {
-        Task.Run(() => ProcessService.StopAll(false)).ConfigureAwait(false);
-    }
-
-    private void KillAll()
-    {
-        Task.Run(() => ProcessService.KillAll(false)).ConfigureAwait(false);
     }
 }

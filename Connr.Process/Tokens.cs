@@ -1,6 +1,6 @@
 ﻿namespace Connr.Process;
 
-public class Tokens
+public class Tokens : IDisposable
 {
     public Tokens(Parameters parameters)
     {
@@ -12,4 +12,10 @@ public class Tokens
     public CancellationTokenSource StopTokenSource { get; } = new();
 
     public CancellationTokenSource KillTokenSource { get; } = new();
+
+    public void Dispose()
+    {
+        StopTokenSource?.Dispose();
+        KillTokenSource?.Dispose();
+    }
 }

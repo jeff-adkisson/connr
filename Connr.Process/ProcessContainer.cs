@@ -2,7 +2,7 @@
 
 namespace Connr.Process;
 
-public sealed class ProcessContainer : IProcessContainer
+public sealed class ProcessContainer : IProcessContainer, IDisposable
 {
     public ProcessContainer(Parameters parameters)
     {
@@ -44,4 +44,10 @@ public sealed class ProcessContainer : IProcessContainer
     public Tokens Tokens { get; }
 
     public Statistics Statistics { get; }
+    
+    public void Dispose()
+    {
+        Events.Dispose();
+        Tokens.Dispose();
+    }
 }

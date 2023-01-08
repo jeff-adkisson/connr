@@ -10,7 +10,7 @@ namespace Connr.App.Components;
 
 public partial class RelatedPorts : IDisposable
 {
-    private Timer _refreshTimer = new() { Interval = 1000, AutoReset = false };
+    private readonly Timer _refreshTimer = new() { Interval = 1000, AutoReset = false };
 
     private List<NetstatLine>? _relatedPorts;
 

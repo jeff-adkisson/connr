@@ -4,11 +4,6 @@ namespace Connr.Process;
 
 public class Result : CommandResult, IResult
 {
-    public const int SuccessCode = 0;
-    public const int ErrorCode = 1;
-
-    private static IResult? _defaultInstance;
-
     public Result(
         int exitCode,
         Statistics statistics) :
@@ -19,9 +14,9 @@ public class Result : CommandResult, IResult
     {
     }
 
-    public static IResult Default => _defaultInstance ??= new Result(-1, new Statistics());
+    public static IResult Default { get; } = new Result(-1, new Statistics());
 
     public string Error { get; set; } = "";
 
-    public bool Success => ExitCode == SuccessCode;
+    public bool Success => ExitCode == Codes.Success;
 }

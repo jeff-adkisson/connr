@@ -9,9 +9,6 @@ namespace Connr.Process;
 
 public class StateMachine
 {
-    private const int SuccessCode = Process.Result.SuccessCode;
-    private const int ErrorCode = Process.Result.ErrorCode;
-
     private readonly ProcessContainer _container;
 
     public StateMachine(ProcessContainer container)
@@ -133,20 +130,20 @@ public class StateMachine
                 Statistics.StoppedAt = DateTime.Now;
                 var code = Tokens.StopTokenSource.IsCancellationRequested &&
                            !Tokens.KillTokenSource.IsCancellationRequested
-                    ? SuccessCode
-                    : ErrorCode;
-                var errorMsg = code == SuccessCode ? "" : taskEx.Message;
+                    ? Codes.Success
+                    : Codes.Error;
+                var errorMsg = code == Codes.Success ? "" : taskEx.Message;
                 Result = new Result(code, Statistics) { Error = errorMsg };
                 HandleProcessEvent(
                     new ExitedCommandEvent(code)); //does not get called otherwise when cancellation requested
-                await State.FireAsync(code == SuccessCode
+                await State.FireAsync(code == Codes.Success
                     ? ProcessTrigger.EndWithSuccess
                     : ProcessTrigger.EndWithError);
             }
             catch (Exception ex)
             {
                 Statistics.StoppedAt = DateTime.Now;
-                Result = new Result(ErrorCode, Statistics) { Error = ex.Message };
+                Result = new Result(Codes.Error, Statistics) { Error = ex.Message };
                 await State.FireAsync(ProcessTrigger.EndWithError);
             }
         }).ConfigureAwait(false);

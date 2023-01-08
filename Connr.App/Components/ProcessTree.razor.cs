@@ -50,12 +50,12 @@ public partial class ProcessTree
         foreach (var child in tree.ChildProcesses.OrderBy(p => p.Id)) AddChildren(child, thisTreeItem.TreeItems, false);
     }
 
-    internal class TreeItemData
+    private sealed class TreeItemData
     {
         public string Title { get; init; } = "";
 
         public bool IsExpanded { get; set; }
 
-        public HashSet<TreeItemData> TreeItems { get; set; } = new();
+        public HashSet<TreeItemData> TreeItems { get; } = new();
     }
 }

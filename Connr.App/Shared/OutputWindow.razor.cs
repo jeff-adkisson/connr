@@ -19,7 +19,7 @@ public partial class OutputWindow : IDisposable
     private long _dictIndex = 0;
     private readonly ConcurrentDictionary<long, Line> _lines = new();
     private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-    private Timer _timer = new(250) { AutoReset = true };
+    private readonly Timer _timer = new(250) { AutoReset = true };
     private bool _awaitingRedraw;
     protected override void OnInitialized()
     {

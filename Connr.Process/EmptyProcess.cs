@@ -1,10 +1,8 @@
 ﻿namespace Connr.Process;
 
-public class EmptyProcess : IProcessContainer
+public class EmptyProcess : IProcessContainer, IDisposable
 {
-    private static EmptyProcess? _instance;
-
-    internal EmptyProcess()
+    private EmptyProcess()
     {
         Result = Process.Result.Default;
         Statistics = new Statistics();
@@ -32,7 +30,16 @@ public class EmptyProcess : IProcessContainer
 
     public Events Events { get; }
 
-    public IResult Result { get; set; }
+    private readonly IResult _result = new Result(1, new Statistics());
+
+    public IResult Result
+    {
+        get => _result;
+        set
+        {
+            //ignore
+        }
+    }
 
     public ProcessState State { get; } = ProcessState.NotStarted;
 
@@ -40,8 +47,11 @@ public class EmptyProcess : IProcessContainer
 
     public Statistics Statistics { get; } 
 
-    public static EmptyProcess Instance()
+    public static EmptyProcess Instance { get; } = new();
+    
+    public void Dispose()
     {
-        return _instance ??= new EmptyProcess();
+        Events.Dispose();
+        Tokens.Dispose();
     }
 }
