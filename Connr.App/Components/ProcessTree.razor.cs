@@ -1,5 +1,6 @@
 ﻿using Connr.Process;
 using DotNetstat;
+using DotNetstat.ProcessTree;
 using Microsoft.AspNetCore.Components;
 using Processes = DotNetstat.Processes;
 
@@ -36,14 +37,14 @@ public partial class ProcessTree
         if (process == null) return;
 
         IsLoading = true;
-        var tree = process.GetProcessTree();
+        var tree = process.GetTree();
         TreeItems.Clear();
         AddChildren(tree, TreeItems, true);
         IsLoading = false;
         InvokeAsync(StateHasChanged);
     }
 
-    private void AddChildren(DotNetstat.ProcessTree tree, HashSet<TreeItemData> treeItemData, bool expand)
+    private void AddChildren(DotNetstat.ProcessTree.Tree tree, HashSet<TreeItemData> treeItemData, bool expand)
     {
         var thisTreeItem = new TreeItemData { Title = $"{tree.Id}: {tree.ProcessName}", IsExpanded = expand };
         treeItemData.Add(thisTreeItem);
