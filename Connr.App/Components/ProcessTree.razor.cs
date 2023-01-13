@@ -33,7 +33,7 @@ public partial class ProcessTree
     {
         if (ProcessId == 0) return;
 
-        var process = Processes.ByProcessId(ProcessId);
+        var process = Processes.GetProcessById(ProcessId);
         if (process == null) return;
 
         IsLoading = true;

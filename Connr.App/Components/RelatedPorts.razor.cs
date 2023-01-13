@@ -3,6 +3,7 @@ using Connr.Process;
 using DotNetstat;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Line = DotNetstat.Line;
 using Processes = DotNetstat.Processes;
 using Timer = System.Timers.Timer;
 
@@ -12,7 +13,7 @@ public partial class RelatedPorts : IDisposable
 {
     private readonly Timer _refreshTimer = new() { Interval = 1000, AutoReset = false };
 
-    private List<NetstatLine>? _relatedPorts;
+    private List<Line>? _relatedPorts;
 
     [Parameter] public int ProcessId { get; set; }
 
@@ -59,7 +60,7 @@ public partial class RelatedPorts : IDisposable
         }
 
         IsLoading = true;
-        var netstat = Netstat.Call().Lines;
+        var netstat = Netstat.Call();
 
         _relatedPorts = netstat
             .ByProcessId(ProcessId)
@@ -73,7 +74,7 @@ public partial class RelatedPorts : IDisposable
 
     private void KillProcess(int relatedPortProcessId)
     {
-        var process = Processes.Running().ByProcessId(relatedPortProcessId);
+        var process = Processes.GetProcessById(relatedPortProcessId);
         if (process == null) return;
         try
         {

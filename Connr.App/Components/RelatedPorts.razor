@@ -1,5 +1,6 @@
 ﻿@using Connr.Process
 @using DotNetstat
+@using Line = DotNetstat.Line
 @if (IsVisible)
 {
     var showKillProcess = ProcessState.IsRunning();
@@ -51,32 +52,32 @@
                     <MudTh/>
                 }
                 <MudTh>
-                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.ProcessId)">
+                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.ProcessId)">
                         Process
                     </MudTableSortLabel>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.LocalPort)">
+                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.LocalPort)">
                         Port
                     </MudTableSortLabel>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.LocalAddress)">
+                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.LocalAddress)">
                         Process
                     </MudTableSortLabel>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.Protocol)">
+                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.Protocol)">
                         Protocol
                     </MudTableSortLabel>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.State)">
+                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.State)">
                         State
                     </MudTableSortLabel>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel SortBy="new Func<NetstatLine, object>(x => x.ModuleName)">
+                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.ModuleName)">
                         Module
                     </MudTableSortLabel>
                 </MudTh>
