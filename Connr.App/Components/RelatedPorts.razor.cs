@@ -64,9 +64,9 @@ public partial class RelatedPorts : IDisposable
 
         _relatedPorts = netstat
             .ByProcessId(ProcessId)
-            .Where(n => n.LocalPort > 0)
+            .Where(n => n.LocalAddress.Port > 0)
             .OrderBy(n => n.State.StartsWith("LISTEN") ? 0 : 1)
-            .ThenBy(n => n.LocalAddress)
+            .ThenBy(n => n.LocalAddress.Port)
             .ToList();
         IsLoading = false;
         InvokeAsync(StateHasChanged);

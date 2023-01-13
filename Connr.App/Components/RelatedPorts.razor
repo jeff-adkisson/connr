@@ -57,12 +57,12 @@
                     </MudTableSortLabel>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.LocalPort)">
+                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.LocalAddress.Port)">
                         Port
                     </MudTableSortLabel>
                 </MudTh>
                 <MudTh>
-                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.LocalAddress)">
+                    <MudTableSortLabel SortBy="new Func<Line, object>(x => x.LocalAddress.Name)">
                         Process
                     </MudTableSortLabel>
                 </MudTh>
@@ -96,10 +96,10 @@
                 @context.ProcessId.ToString()
             </MudTd>
             <MudTd>
-                @context.LocalPort.ToString()
+                @context.LocalAddress.Port.ToString()
             </MudTd>
             <MudTd>
-                @context.LocalAddress
+                @context.LocalAddress.Name
             </MudTd>
             <MudTd>
                 @context.Protocol
