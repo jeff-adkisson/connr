@@ -57,6 +57,15 @@ public partial class Run
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.Api.Administration"
                     : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Administration"
+            },
+            new()
+            {
+                Name = "Participant API",
+                Command = "dotnet",
+                Arguments = new() { "run" },
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass\HighMatch.Compass.Api.Participant"
+                    : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Participant"
             }
         };
     }
