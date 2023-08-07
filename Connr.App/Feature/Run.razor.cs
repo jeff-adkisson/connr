@@ -47,7 +47,9 @@ public partial class Run
                 Arguments = new() { "run" },
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost"
-                    : @"/mnt/d/projects/compass/HighMatch.Compass.AppServer.SiloHost"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.AppServer.SiloHost"
+                        : @"/mnt/d/projects/compass/HighMatch.Compass.AppServer.SiloHost"
             },
             new()
             {
@@ -56,7 +58,9 @@ public partial class Run
                 Arguments = new() { "run" },
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.Api.Administration"
-                    : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Administration"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.Api.Administration"
+                        : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Administration"
             },
             new()
             {
@@ -65,7 +69,9 @@ public partial class Run
                 Arguments = new() { "run" },
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.Api.Participant"
-                    : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Participant"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.Api.Administration" 
+                        : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Participant"
             }
         };
     }
