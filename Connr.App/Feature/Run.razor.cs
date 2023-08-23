@@ -23,14 +23,12 @@ public partial class Run
         {
             if (!ProcessService.TryGetProcesses(defaultParm, out var runningProcesses))
             {
-                result.Add(new(defaultParm, null));
+                result.Add(new ValueTuple<Parameters, IProcessContainer?>(defaultParm, null));
                 continue;
             }
-             
+
             foreach (var runningProcess in runningProcesses)
-            {
-                result.Add(new (runningProcess.Parameters, runningProcess));
-            }
+                result.Add(new ValueTuple<Parameters, IProcessContainer>(runningProcess.Parameters, runningProcess));
         }
 
         return result;
@@ -38,24 +36,13 @@ public partial class Run
 
     private static List<Parameters> GetDefaultParameterList()
     {
-        return new List<Parameters>()
+        return new List<Parameters>
         {
-            new()
-            {
-                Name = "Silo Host",
-                Command = "dotnet",
-                Arguments = new() { "run" },
-                WorkingDirectory = OperatingSystem.IsWindows()
-                    ? @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost"
-                    : OperatingSystem.IsMacOS()
-                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.AppServer.SiloHost"
-                        : @"/mnt/d/projects/compass/HighMatch.Compass.AppServer.SiloHost"
-            },
             new()
             {
                 Name = "Admin API",
                 Command = "dotnet",
-                Arguments = new() { "run" },
+                Arguments = new List<string> { "run" },
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.Api.Administration"
                     : OperatingSystem.IsMacOS()
@@ -64,14 +51,47 @@ public partial class Run
             },
             new()
             {
+                Name = "Admin UI",
+                Command = "npm",
+                Arguments = new List<string> { "start" },
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass\compass.ui.admin"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass.ui.admin"
+                        : @"/mnt/d/projects/compass/compass.ui.admin"
+            },
+            new()
+            {
                 Name = "Participant API",
                 Command = "dotnet",
-                Arguments = new() { "run" },
+                Arguments = new List<string> { "run" },
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.Api.Participant"
                     : OperatingSystem.IsMacOS()
-                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.Api.Participant" 
+                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.Api.Participant"
                         : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Participant"
+            },
+            new()
+            {
+                Name = "Participant UI",
+                Command = "npm",
+                Arguments = new List<string> { "start" },
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass\compass.ui.participant"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass.ui.participant"
+                        : @"/mnt/d/projects/compass/compass.ui.participant"
+            },
+            new()
+            {
+                Name = "Silo Host",
+                Command = "dotnet",
+                Arguments = new List<string> { "run" },
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.AppServer.SiloHost"
+                        : @"/mnt/d/projects/compass/HighMatch.Compass.AppServer.SiloHost"
             }
         };
     }
