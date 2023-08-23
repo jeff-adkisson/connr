@@ -70,7 +70,7 @@ public partial class Run
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.Api.Participant"
                     : OperatingSystem.IsMacOS()
-                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.Api.Administration" 
+                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.Api.Participant" 
                         : @"/mnt/d/projects/compass/HighMatch.Compass.Api.Participant"
             }
         };
