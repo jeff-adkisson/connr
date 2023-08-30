@@ -64,7 +64,12 @@ public partial class CommandRunner : IDisposable
         PrepareOutputWindow();
 
         var args = new List<string>();
-        if (!string.IsNullOrWhiteSpace(Model.Arguments)) args.Add(Model.Arguments);
+        if (!string.IsNullOrWhiteSpace(Model.Arguments))
+        {
+            var split = Model.Arguments.Split(' ')
+                .Where(arg => !string.IsNullOrWhiteSpace(arg));
+            args.AddRange(split);
+        }
         var parms = new Parameters
         {
             Command = Model.Command!,

@@ -84,6 +84,17 @@ public partial class Run
             },
             new()
             {
+                Name = "Reports UI",
+                Command = "nx",
+                Arguments = new List<string> { "run", "report:serve:development" },
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass\compass.ui"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass.ui"
+                        : @"/mnt/d/projects/compass/compass.ui"
+            },
+            new()
+            {
                 Name = "Silo Host",
                 Command = "dotnet",
                 Arguments = new List<string> { "run" },
