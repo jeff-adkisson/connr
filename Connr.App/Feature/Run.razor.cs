@@ -84,6 +84,17 @@ public partial class Run
             },
             new()
             {
+                Name = "Publisher",
+                Command = "dotnet",
+                Arguments = new List<string> { "run" },
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass.editor\src\HighMatch.Publisher.App"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass.editor/src/HighMatch.Publisher.App"
+                        : @"/mnt/d/projects/compass.editor/src/HighMatch.Publisher.App"
+            },
+            new()
+            {
                 Name = "Reports UI",
                 Command = "nx",
                 Arguments = new List<string> { "run", "report:serve:development" },
