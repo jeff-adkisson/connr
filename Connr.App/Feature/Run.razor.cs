@@ -43,6 +43,7 @@ public partial class Run
                 Name = "Admin API",
                 Command = "dotnet",
                 Arguments = new List<string> { "run" },
+                AutoStart = true,
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.Api.Administration"
                     : OperatingSystem.IsMacOS()
@@ -88,10 +89,10 @@ public partial class Run
                 Command = "dotnet",
                 Arguments = new List<string> { "run" },
                 WorkingDirectory = OperatingSystem.IsWindows()
-                    ? @"D:\projects\compass.editor\src\HighMatch.Publisher.App"
+                    ? @"D:\projects\compass\publisher\HighMatch.Publisher.Site"
                     : OperatingSystem.IsMacOS()
-                        ? @"/Users/jeff/projects/compass.editor/src/HighMatch.Publisher.App"
-                        : @"/mnt/d/projects/compass.editor/src/HighMatch.Publisher.App"
+                        ? @"/Users/jeff/projects/compass/publisher/HighMatch.Publisher.Site"
+                        : @"/mnt/d/projects/compass/publisher/HighMatch.Publisher.Site"
             },
             new()
             {
@@ -109,11 +110,24 @@ public partial class Run
                 Name = "Silo Host",
                 Command = "dotnet",
                 Arguments = new List<string> { "run" },
+                AutoStart = true,
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost"
                     : OperatingSystem.IsMacOS()
                         ? @"/Users/jeff/projects/compass/HighMatch.Compass.AppServer.SiloHost"
                         : @"/mnt/d/projects/compass/HighMatch.Compass.AppServer.SiloHost"
+            },
+            new()
+            {
+                Name = "Job Link",
+                Command = "dotnet",
+                Arguments = new List<string> { "run" },
+                AutoStart = true,
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass\HighMatch.Compass.JobLink"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.JobLink"
+                        : @"/mnt/d/projects/compass/HighMatch.Compass.JobLink"
             }
         };
     }

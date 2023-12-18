@@ -11,6 +11,8 @@ public sealed class Parameters : IEquatable<Parameters>
     public List<string> Arguments { get; init; } = new();
 
     public string WorkingDirectory { get; init; } = "";
+    
+    public bool AutoStart { get; init; } = false;
 
     public Dictionary<string, string?> EnvironmentVariables { get; init; } = new();
 
