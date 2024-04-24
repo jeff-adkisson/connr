@@ -40,6 +40,29 @@ public partial class Run
         {
             new()
             {
+                Name = "Silo Host",
+                Command = "dotnet",
+                Arguments = new List<string> { "run" },
+                AutoStart = true,
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.AppServer.SiloHost"
+                        : @"/mnt/d/projects/compass/HighMatch.Compass.AppServer.SiloHost"
+            },
+            new()
+            {
+                Name = "Publisher",
+                Command = "dotnet",
+                Arguments = new List<string> { "run" },
+                WorkingDirectory = OperatingSystem.IsWindows()
+                    ? @"D:\projects\compass\publisher\HighMatch.Publisher.Site"
+                    : OperatingSystem.IsMacOS()
+                        ? @"/Users/jeff/projects/compass/publisher/HighMatch.Publisher.Site"
+                        : @"/mnt/d/projects/compass/publisher/HighMatch.Publisher.Site"
+            },
+            new()
+            {
                 Name = "Admin API",
                 Command = "dotnet",
                 Arguments = new List<string> { "run" },
@@ -74,29 +97,7 @@ public partial class Run
             },
             new()
             {
-                Name = "Participant UI",
-                Command = "npm",
-                Arguments = new List<string> { "start" },
-                WorkingDirectory = OperatingSystem.IsWindows()
-                    ? @"D:\projects\compass\compass.ui.participant"
-                    : OperatingSystem.IsMacOS()
-                        ? @"/Users/jeff/projects/compass.ui.participant"
-                        : @"/mnt/d/projects/compass/compass.ui.participant"
-            },
-            new()
-            {
-                Name = "Publisher",
-                Command = "dotnet",
-                Arguments = new List<string> { "run" },
-                WorkingDirectory = OperatingSystem.IsWindows()
-                    ? @"D:\projects\compass\publisher\HighMatch.Publisher.Site"
-                    : OperatingSystem.IsMacOS()
-                        ? @"/Users/jeff/projects/compass/publisher/HighMatch.Publisher.Site"
-                        : @"/mnt/d/projects/compass/publisher/HighMatch.Publisher.Site"
-            },
-            new()
-            {
-                Name = "Reports UI",
+                Name = "Participant and Reports UI",
                 Command = "nx",
                 Arguments = new List<string> { "run", "report:serve:development" },
                 WorkingDirectory = OperatingSystem.IsWindows()
@@ -104,18 +105,6 @@ public partial class Run
                     : OperatingSystem.IsMacOS()
                         ? @"/Users/jeff/projects/compass.ui"
                         : @"/mnt/d/projects/compass/compass.ui"
-            },
-            new()
-            {
-                Name = "Silo Host",
-                Command = "dotnet",
-                Arguments = new List<string> { "run" },
-                AutoStart = true,
-                WorkingDirectory = OperatingSystem.IsWindows()
-                    ? @"D:\projects\compass\HighMatch.Compass.AppServer.SiloHost"
-                    : OperatingSystem.IsMacOS()
-                        ? @"/Users/jeff/projects/compass/HighMatch.Compass.AppServer.SiloHost"
-                        : @"/mnt/d/projects/compass/HighMatch.Compass.AppServer.SiloHost"
             },
             new()
             {

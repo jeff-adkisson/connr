@@ -1,0 +1,347 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.8.0.0",
+        "fileVersion": "4.8.0-3.23524.11 (f43cd10b)",
+        "semanticVersion": "4.8.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CA1806",
+          "level": "note",
+          "message": ".ctor calls TryParse but does not explicitly check whether the conversion succeeded. Either use the return value in a conditional statement or verify that the call site expects that the out argument will be set to the default value when the conversion fails.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/Address.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 41,
+                  "endLine": 22,
+                  "endColumn": 85
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1116",
+          "level": "warning",
+          "message": "Remove this empty statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/NetstatParsing/OriginalLine.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 9,
+                  "endLine": 9,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6444",
+          "level": "warning",
+          "message": "Pass a timeout to limit the execution time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/CommandRegex.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 25,
+                  "endLine": 14,
+                  "endColumn": 77
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6444",
+          "level": "warning",
+          "message": "Pass a timeout to limit the execution time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/CommandRegex.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 27,
+                  "endLine": 19,
+                  "endColumn": 75
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6444",
+          "level": "warning",
+          "message": "Pass a timeout to limit the execution time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/CommandRegex.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 30,
+                  "endLine": 24,
+                  "endColumn": 103
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6444",
+          "level": "warning",
+          "message": "Pass a timeout to limit the execution time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/CommandRegex.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 36,
+                  "endLine": 26,
+                  "endColumn": 125
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2971",
+          "level": "warning",
+          "message": "Use 'Count' property here instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/Output.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 42,
+                  "endLine": 39,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3267",
+          "level": "warning",
+          "message": "Loop should be simplified by calling Select(match => match.Groups))",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/ProcessTree/GetExtensions.cs",
+                "region": {
+                  "startLine": 73,
+                  "startColumn": 33,
+                  "endLine": 73,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1829",
+          "level": "note",
+          "message": "Use the \"Count\" property instead of Enumerable.Count()",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/Output.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 33,
+                  "endLine": 39,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "PropertyNameKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1416",
+          "level": "warning",
+          "message": "This call site is reachable on all platforms. 'GetExtensions.GetChildProcessesFromShell(Process, Processes)' is only supported on: 'linux', 'macOS/OSX'.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/jeff/projects/connr/DotNetstat/DotNetstat/ProcessTree/GetExtensions.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 15,
+                  "endLine": 26,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1416": {
+          "id": "CA1416",
+          "shortDescription": "Validate platform compatibility",
+          "fullDescription": "Using platform dependent API on a component makes the code no longer work across all platforms.",
+          "defaultLevel": "warning",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1416",
+          "properties": {
+            "category": "Interoperability",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1806": {
+          "id": "CA1806",
+          "shortDescription": "Do not ignore method results",
+          "fullDescription": "A new object is created but never used; or a method that creates and returns a new string is called and the new string is never used; or a COM or P/Invoke method returns an HRESULT or error code that is never used.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1806",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1829": {
+          "id": "CA1829",
+          "shortDescription": "Use Length/Count property instead of Count() when available",
+          "fullDescription": "Enumerable.Count() potentially enumerates the sequence while a Length/Count property is a direct access.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1829",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "S1116": {
+          "id": "S1116",
+          "shortDescription": "Empty statements should be removed",
+          "fullDescription": "Empty statements represented by a semicolon ; are statements that do not perform any operation. They are often the result of a typo or a misunderstanding of the language syntax. It is a good practice to remove empty statements since they don’t add value and lead to confusion and errors.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1116",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2971": {
+          "id": "S2971",
+          "shortDescription": "LINQ expressions should be simplified",
+          "fullDescription": "In the interests of readability, code that can be simplified should be simplified. To that end, there are several ways IEnumerable language integrated queries (LINQ) can be simplified. This not only improves readabilty but can also lead to improved performance.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2971",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3267": {
+          "id": "S3267",
+          "shortDescription": "Loops should be simplified with \"LINQ\" expressions",
+          "fullDescription": "When a loop is filtering, selecting or aggregating, those functions can be handled with a clearer, more concise LINQ expression instead.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3267",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6444": {
+          "id": "S6444",
+          "shortDescription": "Not specifying a timeout for regular expressions is security-sensitive",
+          "fullDescription": "Not specifying a timeout for regular expressions can lead to a Denial-of-Service attack. Pass a timeout when using System.Text.RegularExpressions to process untrusted input because a malicious user might craft a value for which the evaluation lasts excessively long.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6444",
+          "properties": {
+            "category": "Major Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

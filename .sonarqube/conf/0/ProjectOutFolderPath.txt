@@ -1,0 +1,1 @@
+/Users/jeff/projects/connr/.sonarqube/out/0
