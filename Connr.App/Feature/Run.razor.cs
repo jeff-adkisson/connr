@@ -98,8 +98,8 @@ public partial class Run
             new()
             {
                 Name = "Participant and Reports UI",
-                Command = "nx",
-                Arguments = new List<string> { "run", "report:serve:development" },
+                Command = "npm",
+                Arguments = new List<string> { "start" },
                 WorkingDirectory = OperatingSystem.IsWindows()
                     ? @"D:\projects\compass\compass.ui"
                     : OperatingSystem.IsMacOS()
