@@ -1,4 +1,4 @@
-﻿using Connr.Process;
+using Connr.Process;
 using Microsoft.AspNetCore.Components;
 using OperatingSystem = Connr.Process.OperatingSystem;
 
@@ -52,14 +52,14 @@ public partial class Run
             },
             new()
             {
-                Name = "Publisher",
+                Name = "Admin Site",
                 Command = "dotnet",
                 Arguments = new List<string> { "run" },
                 WorkingDirectory = OperatingSystem.IsWindows()
-                    ? @"D:\projects\compass\publisher\HighMatch.Publisher.Site"
+                    ? @"D:\projects\compass\admin_site\HighMatch.Compass.Admin.Site"
                     : OperatingSystem.IsMacOS()
-                        ? @"/Users/jeff/projects/compass/publisher/HighMatch.Publisher.Site"
-                        : @"/mnt/d/projects/compass/publisher/HighMatch.Publisher.Site"
+                        ? @"/Users/jeff/projects/admin_site/HighMatch.Compass.Admin.Site"
+                        : @"/mnt/d/projects/compass/admin_site/HighMatch.Compass.Admin.Site"
             },
             new()
             {
@@ -75,7 +75,7 @@ public partial class Run
             },
             new()
             {
-                Name = "Admin UI",
+                Name = "Customer UI",
                 Command = "npm",
                 Arguments = new List<string> { "start" },
                 WorkingDirectory = OperatingSystem.IsWindows()
