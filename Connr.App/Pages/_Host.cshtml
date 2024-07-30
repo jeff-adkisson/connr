@@ -19,7 +19,7 @@
 </head>
 <body>
 
-@(await Html.RenderComponentAsync<App>(RenderMode.Server))
+@(await Html.RenderComponentAsync<App>(Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server))
 
 <div id="blazor-error-ui">
     <environment include="Staging,Production">
